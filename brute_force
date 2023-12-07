@@ -1,0 +1,19 @@
+
+rm result 
+touch result
+
+for line in $(cat lm_hashes); do
+	echo $line
+done
+
+for line in $(cat nt_hashes); do
+	start_time=$(date +%s.%N)
+        echo $line >> result
+	echo $line > temp
+        hashcat -m 1000 -a 3 -o res  temp
+        cat res >> result
+	end_time=$(date +%s.%N)
+	execution_time=$(echo "$end_time - $start_time" | bc)
+	echo "Execution Time: $execution_time seconds" >> result
+	echo >> result
+done

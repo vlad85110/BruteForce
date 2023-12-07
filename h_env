@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ "$(basename $SHELL)" = "zsh" ]; then
+    base_dir=$(cd "$(dirname "$0")" && pwd)
+else
+    base_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+fi
+
+
+if [ "$MSYSTEM" = "MINGW64" ]; then
+    echo "This script is running in Git Bash on Windows."
+    hashcat_cmd="hashcat64.exe"
+else
+    echo "This script is not running in Git Bash on Windows."
+    hashcat_cmd="hashcat"
+
+fi
+
+export HASHCAT_CMD=$hashcat_cmd
+export PATH=$PATH:$base_dir:$base_dir/hash
+export HASH_DIR=$base_dir/hash
+
+echo "Success"

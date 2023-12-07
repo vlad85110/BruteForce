@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source /home/vlad/infobez/lab6/venv/bin/activate
+
+rm nt_hashes
+touch nt_hashes
+rm lm_hashes
+touch lm_hashes
+
+for line in $(cat passwords); do
+    python $HASH_DIR/nt.py $line >> nt_hashes
+    python $HASH_DIR/lm.py $line >> lm_hashes
+done
+
+
