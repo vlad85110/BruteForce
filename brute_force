@@ -1,19 +1,38 @@
+#!/bin/bash
 
 rm result 
 touch result
 
-for line in $(cat lm_hashes); do
-	echo $line
-done
+#for line in $(cat lm_hashes); do
+#	echo $line
+#done
 
-for line in $(cat nt_hashes); do
-	start_time=$(date +%s.%N)
+i=1
+for line in $(cat nt_hashes); do  
+	start=$(date +%s)
+
+	mask=$(awk "NR==${i}" masks)
+
         echo $line >> result
 	echo $line > temp
-        hashcat -m 1000 -a 3 -o res  temp
+	rm res 
+	touch res
+
+	#echo $mask
+
+	mask=$(awk "NR==${i}" masks)
+        $HASHCAT_CMD -m 1000 -a 3 --potfile-disable -o res temp $mask
         cat res >> result
-	end_time=$(date +%s.%N)
-	execution_time=$(echo "$end_time - $start_time" | bc)
+
+	end=$(date +%s)
+	execution_time=$((end-start))
 	echo "Execution Time: $execution_time seconds" >> result
 	echo >> result
+
+	((i++))
+
+	#exit
 done
+
+
+
