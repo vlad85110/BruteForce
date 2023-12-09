@@ -5,7 +5,7 @@ touch result
 
 
 i=1
-for line in $(cat lm_hashes); do
+for line in $(cat nt_hashes); do
         start=$(date +%s)
  
         mask=$(awk "NR==${i}" masks)
@@ -16,7 +16,7 @@ for line in $(cat lm_hashes); do
         touch res
 
         mask=$(awk "NR==${i}" masks)
-        $JOHN_CMD --format=lm --mask=$mask --fork=12 temp
+        $JOHN_CMD --format=nt --mask=$mask --fork=16 temp
         cat res >> result
 
         end=$(date +%s)
