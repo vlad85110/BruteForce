@@ -1,0 +1,6 @@
+#!/bin/bash
+
+brute_force $HASHCAT_CMD nt_hashes 1000
+
+
+

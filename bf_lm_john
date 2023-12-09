@@ -1,0 +1,28 @@
+#!/bin/bash
+
+rm result
+touch result
+
+
+i=1
+for line in $(cat lm_hashes); do
+        start=$(date +%s)
+ 
+        mask=$(awk "NR==${i}" masks)
+
+        echo $line >> result
+        echo $line > temp
+        rm res
+        touch res
+
+        mask=$(awk "NR==${i}" masks)
+        $JOHN_CMD --format=lm --mask=$mask temp
+        cat res >> result
+
+        end=$(date +%s)
+        execution_time=$((end-start))
+        echo "Execution Time: $execution_time seconds" >> result
+        echo >> result
+
+        ((i++))
+done

@@ -3,12 +3,12 @@
 rm result 
 touch result
 
-#for line in $(cat lm_hashes); do
-#	echo $line
-#done
+cmd=$1
+filename=$2
+hash_type=$3
 
 i=1
-for line in $(cat nt_hashes); do  
+for line in $(cat $filename); do  
 	start=$(date +%s)
 
 	mask=$(awk "NR==${i}" masks)
@@ -21,7 +21,7 @@ for line in $(cat nt_hashes); do
 	#echo $mask
 
 	mask=$(awk "NR==${i}" masks)
-        $HASHCAT_CMD -m 1000 -a 3 --potfile-disable -o res temp $mask
+        $cmd -m $hash_type -a 3 --potfile-disable -o res temp $mask
         cat res >> result
 
 	end=$(date +%s)
@@ -30,8 +30,6 @@ for line in $(cat nt_hashes); do
 	echo >> result
 
 	((i++))
-
-	#exit
 done
 
 

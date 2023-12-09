@@ -1,0 +1,6 @@
+#!/bin/bash
+
+brute_force $HASHCAT_CMD lm_hashes 3000
+
+
+
