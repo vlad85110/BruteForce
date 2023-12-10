@@ -16,7 +16,7 @@ for line in $(cat nt_hashes); do
         touch res
 
         mask=$(awk "NR==${i}" masks)
-        $JOHN_CMD --format=nt --mask=$mask --fork=16 temp
+        $JOHN_CMD --format=NT-opencl --mask=$mask temp
         cat res >> result
 
         end=$(date +%s)

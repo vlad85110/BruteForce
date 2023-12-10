@@ -16,7 +16,7 @@ for line in $(cat lm_hashes); do
         touch res
 
         mask=$(awk "NR==${i}" masks)
-        $JOHN_CMD --format=lm --mask=$mask --fork=12 temp
+        $JOHN_CMD --format=LM-opencl --mask=$mask temp
         cat res >> result
 
         end=$(date +%s)
